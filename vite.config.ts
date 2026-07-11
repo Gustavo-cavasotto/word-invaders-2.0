@@ -10,6 +10,10 @@ export default defineConfig({
     react(),
     legacy()
   ],
+  server: {
+    host: true, // Permite acesso externo
+    https: false, // False para desenvolvimento com emulador local
+  },
   test: {
     globals: true,
     environment: 'jsdom',
