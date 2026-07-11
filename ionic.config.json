@@ -1,0 +1,7 @@
+{
+  "name": "wolrd-invaders-2.0",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
