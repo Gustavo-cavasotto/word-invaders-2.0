@@ -2,7 +2,9 @@ import { Canvas } from '@react-three/fiber';
 import { Grid } from '@react-three/drei';
 import { XR, createXRStore, type XRStore } from '@react-three/xr';
 import { useState, useEffect } from 'react';
+import { Crosshair } from './xr/Crosshair';
 import { Invader } from './xr/Invader';
+import { PlayerWeapon } from './xr/PlayerWeapon';
 import { XRControls } from './xr/XRControls';
 import { NoXR } from './xr/NoXR';
 
@@ -76,6 +78,10 @@ const Game: React.FC = () => {
             onReachPlayer={() => console.log('Player hit!')}
             onDestroy={() => console.log('Invader destroyed!')}
           />
+
+          <PlayerWeapon />
+
+          <Crosshair />
 
           <Grid
             args={[10, 10]}
