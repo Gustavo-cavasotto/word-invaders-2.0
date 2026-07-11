@@ -2,8 +2,9 @@ import { Canvas } from '@react-three/fiber';
 import { Grid } from '@react-three/drei';
 import { XR, createXRStore, type XRStore } from '@react-three/xr';
 import { useState, useEffect } from 'react';
-import { IonButton } from '@ionic/react';
 import { Invader } from './xr/Invader';
+import { XRControls } from './xr/XRControls';
+import { NoXR } from './xr/NoXR';
 
 const store = createXRStore();
 
@@ -69,7 +70,6 @@ const Game: React.FC = () => {
           <directionalLight position={[-5, 3, -5]} intensity={1} />
           <pointLight position={[0, 2, 0]} intensity={1} />
 
-          {/* Invader de teste */}
           <Invader
             initialPosition={[0, 1.5, -3]}
             speed={0.5}
@@ -92,44 +92,18 @@ const Game: React.FC = () => {
         </XR>
       </Canvas>
 
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '30px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 1000,
-          display: 'flex',
-          gap: '10px',
-        }}
-      >
-        {isXRSupported ? (
-          <>
-            <IonButton
-              onClick={handleEnterAR}
-              disabled={isARActive}
-              color={isARActive ? 'success' : 'primary'}
-              size="large"
-            >
-              {isARActive ? '✅ AR Ativa' : '🚀 Enter AR'}
-            </IonButton>
-            {isARActive && (
-              <IonButton
-                onClick={handleExitAR}
-                color="danger"
-                size="large"
-              >
-                ❌ Exit AR
-              </IonButton>
-            )}
-          </>
-        ) : (
-          <IonButton color="warning" size="large" disabled>
-            ⚠️ WebXR não suportado
-          </IonButton>
-        )}
-      </div>
+      {/* Controles AR */}
+      <XRControls
+        isXRSupported={isXRSupported}
+        isARActive={isARActive}
+        onEnterAR={handleEnterAR}
+        onExitAR={handleExitAR}
+      />
 
+      {/* Mensagem quando WebXR não está disponível */}
+      {!isXRSupported && <NoXR />}
+
+      {/* Status info */}
       <div
         style={{
           position: 'absolute',
