@@ -2,7 +2,8 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://localhost:5173",
+    // o dev server usa HTTPS (plugin-basic-ssl, cert autoassinado)
+    baseUrl: "https://localhost:5173",
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

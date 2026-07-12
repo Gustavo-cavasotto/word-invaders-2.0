@@ -1,21 +1,27 @@
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react'
+import { IonReactRouter } from '@ionic/react-router'
 import { ArsenalScreen } from './pages/ArsenalScreen'
 import { GameplayScreen } from './pages/GameplayScreen'
 import { HomeScreen } from './pages/HomeScreen'
 import { SettingsScreen } from './pages/SettingsScreen'
 
+import './theme/variables.css'
+
+setupIonicReact({ mode: 'md', rippleEffect: false })
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="h-full w-full bg-space-900">
-        <Switch>
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
           <Route exact path="/" component={HomeScreen} />
-          <Route path="/settings" component={SettingsScreen} />
-          <Route path="/arsenal" component={ArsenalScreen} />
-          <Route path="/gameplay" component={GameplayScreen} />
+          <Route exact path="/settings" component={SettingsScreen} />
+          <Route exact path="/arsenal" component={ArsenalScreen} />
+          <Route exact path="/gameplay" component={GameplayScreen} />
           <Redirect to="/" />
-        </Switch>
-      </div>
-    </BrowserRouter>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
   )
 }

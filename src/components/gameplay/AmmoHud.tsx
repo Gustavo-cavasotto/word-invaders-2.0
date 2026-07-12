@@ -1,3 +1,5 @@
+import { IonButton } from '@ionic/react'
+
 type AmmoHudProps = {
   weaponName: string
   current: number
@@ -29,13 +31,9 @@ export function AmmoHud({ weaponName, current, total, onReload }: AmmoHudProps) 
           {current}/{total}
         </span>
 
-        <button
-          onClick={onReload}
-          className="rounded-full px-5 py-3 text-[15px] font-black tracking-wider text-[#0E2A45]"
-          style={{ background: 'linear-gradient(180deg, #7FBBEE, #5AA9E6)' }}
-        >
+        <IonButton className="btn-reload" onClick={onReload}>
           RECARREGAR
-        </button>
+        </IonButton>
       </div>
     </div>
   )

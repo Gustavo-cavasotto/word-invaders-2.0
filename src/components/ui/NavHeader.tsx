@@ -1,6 +1,12 @@
 import { CoinBadge } from "@/components/ui/CoinBadge";
-import { ChevronLeft } from "lucide-react";
-import { useHistory } from "react-router-dom";
+import {
+  IonBackButton,
+  IonButtons,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import { chevronBackOutline } from "ionicons/icons";
 
 type NavHeaderProps = {
   title: string;
@@ -8,18 +14,26 @@ type NavHeaderProps = {
 };
 
 export function NavHeader({ title, coins }: NavHeaderProps) {
-  const history = useHistory();
-
   return (
-    <div className="flex items-center gap-3.5 p-6 z-10">
-      <button
-        onClick={() => history.goBack()}
-        className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/7 text-white"
-      >
-        <ChevronLeft size={20} strokeWidth={2.5} />
-      </button>
-      <h2 className="flex-1 text-[19px] font-extrabold text-white">{title}</h2>
-      {coins !== undefined && <CoinBadge coins={coins} />}
-    </div>
+    <IonHeader className="ion-no-border z-10">
+      <IonToolbar className="nav-toolbar">
+        <IonButtons slot="start">
+          <IonBackButton
+            defaultHref="/"
+            text=""
+            icon={chevronBackOutline}
+            className="nav-back"
+          />
+        </IonButtons>
+
+        <IonTitle className="nav-title">{title}</IonTitle>
+
+        {coins !== undefined && (
+          <IonButtons slot="end">
+            <CoinBadge coins={coins} />
+          </IonButtons>
+        )}
+      </IonToolbar>
+    </IonHeader>
   );
 }

@@ -1,5 +1,6 @@
 import { WeaponCard, WeaponCardProps } from "@/components/arsenal/WeaponCard";
 import { NavHeader } from "@/components/ui/NavHeader";
+import { IonContent, IonPage } from "@ionic/react";
 
 const WEAPONS: WeaponCardProps[] = [
   {
@@ -30,14 +31,16 @@ const WEAPONS: WeaponCardProps[] = [
 
 export function ArsenalScreen() {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-space-900">
+    <IonPage>
       <NavHeader title="Arsenal" coins={0} />
 
-      <div className="flex flex-col gap-3 px-4 z-2">
-        {WEAPONS.map((weapon) => (
-          <WeaponCard key={weapon.name} {...weapon} />
-        ))}
-      </div>
-    </div>
+      <IonContent scrollY={false}>
+        <div className="flex flex-col gap-3 px-4">
+          {WEAPONS.map((weapon) => (
+            <WeaponCard key={weapon.name} {...weapon} />
+          ))}
+        </div>
+      </IonContent>
+    </IonPage>
   );
 }

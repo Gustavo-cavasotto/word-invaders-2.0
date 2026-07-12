@@ -1,4 +1,13 @@
+/* O CSS do Ionic entra num layer declarado antes do Tailwind: layer(ionic) fica
+   abaixo de theme/base/components/utilities, então o preflight e as utilities
+   sempre vencem conflitos no light DOM (os estilos shadow-DOM dos componentes
+   Ionic não passam por aqui). normalize/typography/dark.system ficam de fora
+   de propósito — brigariam com o preflight e com o tema sempre-dark. */
+@layer ionic;
+
 @import "tailwindcss";
+@import "@ionic/react/css/core.css" layer(ionic);
+@import "@ionic/react/css/structure.css" layer(ionic);
 
 /* ===== Design Tokens ===== */
 @theme {
@@ -98,5 +107,247 @@
     background: #0B0D14;
     font-family: 'Manrope', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ===== Componentes Ionic estilizados para o tema =====
+   Classes Tailwind num componente Ionic só afetam o host; background, radius,
+   sombra e padding do botão interno (shadow DOM) vão via custom properties
+   (--background, --border-radius, ...) e ::part(). */
+@layer components {
+  /* --- Botões pixel-art da Home --- */
+  ion-button.btn-pixel {
+    margin: 0;
+    height: 3.625rem;               /* h-14.5 */
+    font-family: var(--font-body);
+    font-size: 17px;
+    letter-spacing: .02em;
+    text-transform: none;           /* md deixa uppercase por padrão */
+    --border-radius: 1rem;          /* rounded-2xl */
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --background-activated-opacity: 0;
+    --background-hover-opacity: 0;
+    --background-focused-opacity: 0;
+    --ripple-color: transparent;
+    transition: transform .15s;
+  }
+  ion-button.btn-pixel::part(native) { height: 100%; }
+  ion-button.btn-pixel.ion-activated { transform: translateY(2px); }
+
+  ion-button.btn-pixel-primary {
+    font-weight: 900;
+    --background: linear-gradient(180deg, #B7EC6E, #8FD95C);
+    --background-activated: linear-gradient(180deg, #B7EC6E, #8FD95C);
+    --color: #10240A;
+    --color-activated: #10240A;
+    --box-shadow: 0 6px 0 #4E8A2B, 0 12px 24px rgba(0,0,0,.45), 0 0 28px rgba(166,232,92,.3);
+    transform: translateY(-3px);
+  }
+  ion-button.btn-pixel-primary.ion-activated { transform: translateY(-1px); }
+
+  ion-button.btn-pixel-dark {
+    font-weight: 700;
+    --background: linear-gradient(180deg, #1D2027, #14161B);
+    --background-activated: linear-gradient(180deg, #1D2027, #14161B);
+    --color: #fff;
+    --color-activated: #fff;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: rgba(255,255,255,.12);
+    --box-shadow: 0 5px 0 #08090C, 0 10px 20px rgba(0,0,0,.4);
+  }
+
+  /* --- Botão-ícone quadrado (X do gameplay) --- */
+  ion-button.btn-icon-ghost {
+    margin: 0;
+    width: 2.375rem;                /* size-9.5 */
+    height: 2.375rem;
+    --background: rgba(255,255,255,.07);
+    --color: #fff;
+    --border-radius: .75rem;        /* rounded-xl */
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --box-shadow: none;
+    --ripple-color: transparent;
+    --background-activated-opacity: 0;
+    --background-hover-opacity: 0;
+    --background-focused-opacity: 0;
+  }
+  ion-button.btn-icon-ghost::part(native) { height: 100%; }
+
+  /* --- Pill "▶ Testar" (Configurações) --- */
+  ion-button.btn-test {
+    margin: 0;
+    height: auto;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-transform: none;
+    --background: rgba(255,255,255,.05);
+    --background-activated: rgba(255,255,255,.1);
+    --background-activated-opacity: 1;
+    --background-hover-opacity: 0;
+    --background-focused-opacity: 0;
+    --color: var(--color-gray-sub);
+    --color-activated: var(--color-gray-sub);
+    --border-radius: 9999px;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: rgba(255,255,255,.15);
+    --padding-start: .875rem;       /* px-3.5 */
+    --padding-end: .875rem;
+    --padding-top: .375rem;         /* py-1.5 */
+    --padding-bottom: .375rem;
+    --box-shadow: none;
+    --ripple-color: transparent;
+  }
+
+  /* --- RECARREGAR (HUD de munição) --- */
+  ion-button.btn-reload {
+    margin: 0;
+    height: auto;
+    flex-shrink: 0;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: .05em;          /* tracking-wider */
+    text-transform: none;
+    --background: linear-gradient(180deg, #7FBBEE, #5AA9E6);
+    --background-activated: linear-gradient(180deg, #7FBBEE, #5AA9E6);
+    --color: #0E2A45;
+    --color-activated: #0E2A45;
+    --border-radius: 9999px;
+    --padding-start: 1.25rem;       /* px-5 */
+    --padding-end: 1.25rem;
+    --padding-top: .75rem;          /* py-3 */
+    --padding-bottom: .75rem;
+    --box-shadow: none;
+    --ripple-color: transparent;
+    --background-activated-opacity: 0;
+    --background-hover-opacity: 0;
+    --background-focused-opacity: 0;
+  }
+
+  /* --- Botões do diálogo de saída --- */
+  ion-button.btn-dialog {
+    margin: 0;
+    height: 3.25rem;
+    font-family: var(--font-body);
+    font-size: 15px;
+    letter-spacing: normal;
+    text-transform: none;
+    --border-radius: .75rem;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --box-shadow: none;
+    --ripple-color: transparent;
+    --background-activated-opacity: 0;
+    --background-hover-opacity: 0;
+    --background-focused-opacity: 0;
+  }
+  ion-button.btn-dialog::part(native) { height: 100%; }
+  ion-button.btn-dialog.ion-activated { opacity: .8; }
+  ion-button.btn-dialog-cancel {
+    font-weight: 700;
+    --background: rgba(255,255,255,.07);
+    --background-activated: rgba(255,255,255,.07);
+    --color: #fff;
+    --color-activated: #fff;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: rgba(255,255,255,.1);
+  }
+  ion-button.btn-dialog-confirm {
+    font-weight: 800;
+    --background: linear-gradient(180deg, #B7EC6E, #8FD95C);
+    --background-activated: linear-gradient(180deg, #B7EC6E, #8FD95C);
+    --color: #10240A;
+    --color-activated: #10240A;
+    --box-shadow: 0 4px 0 #4E8A2B;
+  }
+
+  /* --- Header de navegação (Arsenal / Configurações) --- */
+  ion-toolbar.nav-toolbar {
+    --background: transparent;
+    --border-width: 0;
+    --min-height: 0;
+    --padding-start: 1.5rem;        /* p-6 */
+    --padding-end: 1.5rem;
+    --padding-top: 1.5rem;
+    --padding-bottom: 1.5rem;
+    font-family: var(--font-body);
+  }
+  ion-toolbar.nav-toolbar ion-buttons { margin: 0; }
+  ion-back-button.nav-back {
+    width: 2.5rem;                  /* size-10 */
+    height: 2.5rem;
+    --background: rgba(255,255,255,.07);
+    --color: #fff;
+    --border-radius: .75rem;
+    --padding-start: 0;
+    --padding-end: 0;
+    --icon-font-size: 20px;
+    --icon-margin-start: 0;
+    --icon-margin-end: 0;
+    --icon-padding-start: 0;
+    --icon-padding-end: 0;
+    --margin-start: 0;
+    --margin-end: 0;
+    --ripple-color: transparent;
+    --background-hover-opacity: 0;
+    --background-focused-opacity: 0;
+  }
+  ion-back-button.nav-back::part(native) { width: 100%; height: 100%; }
+  ion-title.nav-title {
+    position: static;
+    padding-inline: .875rem 0;      /* gap-3.5 até o botão voltar */
+    font-size: 19px;
+    font-weight: 800;
+    color: #fff;
+    text-align: left;
+  }
+
+  /* --- Toggle das Configurações (pill 54x32) --- */
+  ion-toggle.switch-pixel {
+    width: 54px;
+    height: 32px;
+    flex-shrink: 0;
+    --track-background: var(--color-toggle-off);
+    --track-background-checked: var(--color-alien-green);
+    --handle-background: #fff;
+    --handle-background-checked: #fff;
+    --handle-width: 26px;
+    --handle-height: 26px;
+    --handle-spacing: 3px;
+    --handle-box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+    --border-radius: 9999px;
+    --handle-border-radius: 9999px;
+  }
+  ion-toggle.switch-pixel::part(track) {
+    width: 54px;
+    height: 32px;
+  }
+
+  /* --- Modal de confirmação de saída --- */
+  ion-modal.exit-modal {
+    --width: calc(100% - 48px);
+    --max-width: 24rem;
+    --height: auto;
+    --background: transparent;
+    --box-shadow: none;
+    --backdrop-opacity: .7;
+  }
+  ion-modal.exit-modal::part(backdrop) { backdrop-filter: blur(4px); }
+  /* o conteúdo do IonModal (React) monta num .ion-delegate-host.ion-page,
+     que o structure.css posiciona absoluto — precisa voltar ao fluxo para
+     o --height: auto medir o card */
+  ion-modal.exit-modal .ion-delegate-host.ion-page {
+    position: relative;
+    display: block;
+    contain: content;
   }
 }

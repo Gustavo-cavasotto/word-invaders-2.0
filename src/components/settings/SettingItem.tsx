@@ -1,4 +1,5 @@
 import { Switch } from "@/components/ui/switch";
+import { IonButton } from "@ionic/react";
 
 type SettingItemProps = {
   title: string;
@@ -26,12 +27,9 @@ export function SettingItem({
       </div>
 
       {onTest && (
-        <button
-          onClick={onTest}
-          className="mt-3 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-bold text-gray-sub transition-colors active:bg-white/10"
-        >
+        <IonButton className="btn-test mt-3" onClick={onTest}>
           ▶ Testar
-        </button>
+        </IonButton>
       )}
     </div>
   );
