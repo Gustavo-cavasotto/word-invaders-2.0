@@ -21,6 +21,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    // @iwer/devui e @iwer/sem (emulador WebXR) carregam um three 0.165
+    // aninhado; sem dedupe o renderer deles quebra com materiais do
+    // three do projeto (material.onBuild) e a sessão AR emulada crasha
+    dedupe: ['three'],
   },
   server: {
     host: true, // Permite acesso externo

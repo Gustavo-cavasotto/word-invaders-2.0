@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { DeviceOrientationControls } from '@react-three/drei';
 import { XR, XRDomOverlay, createXRStore, type XRStore } from '@react-three/xr';
 import { useState, useEffect } from 'react';
+import { AutoEnterAR } from '../xr/AutoEnterAR';
 import { Crosshair } from '../xr/Crosshair';
 import { InvaderSpawner } from '../xr/InvaderSpawner';
 import { PlayerWeapon } from '../xr/PlayerWeapon';
@@ -9,7 +10,12 @@ import { RadarTracker } from '../xr/RadarTracker';
 import { NoXR } from '../xr/NoXR';
 import { Radar } from './Radar';
 
-const store = createXRStore(import.meta.env.MODE === 'test' ? { emulate: false } : undefined);
+const store = createXRStore(
+  import.meta.env.MODE === 'test'
+    ? { emulate: false }
+    : 
+      { emulate: { syntheticEnvironment: false } },
+);
 
 
 export function exitAR() {
@@ -46,33 +52,6 @@ const Game: React.FC<GameProps> = ({ autoEnterAR = false }) => {
     };
   }, []);
 
-  useEffect(() => {
-    /* TODO - Esse useEffect criminoso aqui, vou refatorar dps */
-    if (!autoEnterAR || store.getState().session) return;
-
-    let cancelled = false;
-    let attempts = 0;
-    const tryEnter = async () => {
-      if (cancelled) return;
-      try {
-        await store.enterAR();
-      } catch (error) {
-        if (cancelled) return;
-        if (attempts++ < 20 && String(error).includes('not connected')) {
-          setTimeout(tryEnter, 100);
-        } else {
-          console.warn('Entrada automática no AR falhou:', error);
-        }
-      }
-    };
-    tryEnter();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [autoEnterAR]);
-
-
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <Canvas
@@ -81,6 +60,8 @@ const Game: React.FC<GameProps> = ({ autoEnterAR = false }) => {
         onCreated={({ camera }) => camera.lookAt(0, 1.6, -1)}
       >
         <XR store={store}>
+
+          {autoEnterAR && <AutoEnterAR />}
 
           {!isARActive && <DeviceOrientationControls />}
 
