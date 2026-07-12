@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* ===== Design Tokens ===== */
+@theme {
+  --color-space-900: #0B0D14;
+  --color-space-800: #12151F;
+  --color-sky-top: #232A3F;
+  --color-sky-bottom: #3A4560;
+  --color-alien-green: #8FD95C;
+  --color-alien-glow: #A6E85C;
+  --color-btn-green-1: #B7EC6E;
+  --color-btn-green-2: #8FD95C;
+  --color-card-dark: #17181C;
+  --color-card-border: #2A2B30;
+  --color-coin: #F2C94C;
+  --color-reload-blue: #5AA9E6;
+  --color-invader-orange: #C98A5B;
+  --color-invader-pink: #C75B9B;
+  --color-gray-sub: #9BA0AB;
+  --color-toggle-off: #3A3B40;
+
+  --font-game: 'Press Start 2P', monospace;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --animate-float3d: float3d 3.4s ease-in-out infinite;
+  --animate-portal-pulse: portalpulse 3.4s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-grid-move: gridmove 4s linear infinite;
+  --animate-scan: scan 2.6s ease-in-out infinite;
+  --animate-shadow-pulse: shadowpulse 3.4s ease-in-out infinite;
+  --animate-invader-hover: invaderhover 2.8s ease-in-out infinite;
+  --animate-blink: blink 1.4s infinite;
+  --animate-depth-dot: depthdot 4s ease-in-out infinite;
+}
+
+/* ===== Keyframes ===== */
+@keyframes float3d {
+  0%, 100% { transform: translateY(0) rotateX(8deg) rotateY(-10deg); }
+  50%       { transform: translateY(-14px) rotateX(12deg) rotateY(10deg); }
+}
+
+@keyframes portalpulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(166,232,92,.35), inset 0 0 24px rgba(166,232,92,.18); }
+  50%       { box-shadow: 0 0 44px rgba(166,232,92,.55), inset 0 0 34px rgba(166,232,92,.3); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gridmove {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 44px; }
+}
+
+@keyframes scan {
+  0%, 100% { top: 6%;  opacity: 0; }
+  12%       { opacity: 1; }
+  50%       { top: 92%; opacity: 1; }
+  62%       { opacity: 0; }
+}
+
+@keyframes shadowpulse {
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.9; }
+  50%       { transform: translateX(-50%) scale(.78); opacity: 0.55; }
+}
+
+@keyframes invaderhover {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes depthdot {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes screenflash {
+  0%   { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+/* ===== Base =====
+   Wrapping in @layer base keeps priority below @layer utilities,
+   so Tailwind utility classes (px-*, m-*, etc.) always win. */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    background: #0B0D14;
+    font-family: 'Manrope', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
