@@ -1,11 +1,13 @@
 import { Canvas } from '@react-three/fiber';
-import { DeviceOrientationControls, Grid } from '@react-three/drei';
-import { XR, createXRStore, type XRStore } from '@react-three/xr';
-import { Suspense, useState, useEffect } from 'react';
+import { DeviceOrientationControls } from '@react-three/drei';
+import { XR, XRDomOverlay, createXRStore, type XRStore } from '@react-three/xr';
+import { useState, useEffect } from 'react';
 import { Crosshair } from '../xr/Crosshair';
-import { Invader } from '../xr/Invader';
+import { InvaderSpawner } from '../xr/InvaderSpawner';
 import { PlayerWeapon } from '../xr/PlayerWeapon';
+import { RadarTracker } from '../xr/RadarTracker';
 import { NoXR } from '../xr/NoXR';
+import { Radar } from './Radar';
 
 const store = createXRStore(import.meta.env.MODE === 'test' ? { emulate: false } : undefined);
 
@@ -87,23 +89,24 @@ const Game: React.FC<GameProps> = ({ autoEnterAR = false }) => {
           <directionalLight position={[-5, 3, -5]} intensity={1} />
           <pointLight position={[0, 2, 0]} intensity={1} />
 
-          {/* <Suspense fallback={null}>
-            <Invader
-              initialPosition={[0, 1.5, -3]}
-              speed={0.5}
-              onReachPlayer={() => console.log('Player hit!')}
-              onDestroy={() => console.log('Invader destroyed!')}
-            />
-          </Suspense> */}
+          <InvaderSpawner />
 
           <PlayerWeapon />
 
           <Crosshair />
 
+          <RadarTracker />
+
+          {/* durante a sessão AR só o dom-overlay é visível, então o HUD
+              precisa ser portalado pra lá */}
+          <XRDomOverlay>
+            <Radar />
+          </XRDomOverlay>
 
         </XR>
       </Canvas>
 
+      {!isARActive && <Radar />}
 
       {!isXRSupported && <NoXR />}
     </div>

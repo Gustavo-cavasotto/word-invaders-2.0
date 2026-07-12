@@ -10,6 +10,11 @@ export interface InvaderState {
   health: number;
 }
 
+export interface InvaderData {
+  id: number;
+  position: [number, number, number];
+}
+
 export interface ProjectileData {
   id: number;
   origin: [number, number, number];

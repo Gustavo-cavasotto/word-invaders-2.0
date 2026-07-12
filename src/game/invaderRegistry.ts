@@ -18,6 +18,10 @@ export function unregisterInvader(id: number): void {
   invaders.delete(id);
 }
 
+export function getInvaderObjects(): Object3D[] {
+  return Array.from(invaders.values(), (invader) => invader.object);
+}
+
 const segment = new Line3();
 const closestPoint = new Vector3();
 
