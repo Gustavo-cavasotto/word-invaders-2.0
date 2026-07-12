@@ -3,7 +3,7 @@ import { CoinBadge } from "@/components/ui/CoinBadge";
 import { ExitConfirmDialog } from "@/components/ui/ExitConfirmDialog";
 import { IonButton, IonPage, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 export function GameplayScreen() {
@@ -11,17 +11,27 @@ export function GameplayScreen() {
 
   const [exitOpen, setExitOpen] = useState(false);
   const [gameActive, setGameActive] = useState(false);
-  useIonViewWillEnter(() => setGameActive(true));
+  const playerHitRef = useRef(false);
+  useIonViewWillEnter(() => {
+    playerHitRef.current = false;
+    setGameActive(true);
+  });
   useIonViewWillLeave(() => {
     exitAR();
     setGameActive(false);
   });
 
+  const handlePlayerHit = () => {
+    if (playerHitRef.current) return;
+    playerHitRef.current = true;
+    history.goBack();
+  };
+
   return (
     <IonPage>
       <div className="relative h-full w-full overflow-hidden bg-space-900">
         <div className="absolute inset-0 z-0">
-          {gameActive && <Game autoEnterAR />}
+          {gameActive && <Game autoEnterAR onPlayerHit={handlePlayerHit} />}
         </div>
 
         <div className="relative z-10 flex items-center justify-between px-5 pt-5 pb-2">
