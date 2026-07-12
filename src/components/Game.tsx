@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { Grid } from '@react-three/drei';
+import { DeviceOrientationControls, Grid } from '@react-three/drei';
 import { XR, createXRStore, type XRStore } from '@react-three/xr';
 import { useState, useEffect } from 'react';
 import { Crosshair } from './xr/Crosshair';
@@ -67,6 +67,8 @@ const Game: React.FC = () => {
       >
         <XR store={store}>
 
+          {!isARActive && <DeviceOrientationControls />}
+
           <ambientLight intensity={1} />
           <directionalLight position={[5, 5, 5]} intensity={2} />
           <directionalLight position={[-5, 3, -5]} intensity={1} />
@@ -98,7 +100,6 @@ const Game: React.FC = () => {
         </XR>
       </Canvas>
 
-      {/* Controles AR */}
       <XRControls
         isXRSupported={isXRSupported}
         isARActive={isARActive}
@@ -106,10 +107,8 @@ const Game: React.FC = () => {
         onExitAR={handleExitAR}
       />
 
-      {/* Mensagem quando WebXR não está disponível */}
       {!isXRSupported && <NoXR />}
 
-      {/* Status info */}
       <div
         style={{
           position: 'absolute',

@@ -21,6 +21,7 @@ export interface ProjectileProps {
   direction: [number, number, number];
   speed?: number;
   maxDistance?: number;
+  hitRadius?: number;
   onExpire: () => void;
 }
 

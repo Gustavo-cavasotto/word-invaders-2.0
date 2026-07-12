@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Mesh, Vector3 } from 'three';
 import { usePlayerPosition } from '../../hooks/usePlayerPosition';
+import { registerInvader, unregisterInvader } from '../../game/invaderRegistry';
 import type { InvaderProps } from '../../types/game';
 
 export function Invader({
@@ -13,6 +14,15 @@ export function Invader({
   const meshRef = useRef<Mesh>(null);
   const [isAlive, setIsAlive] = useState(true);
   const playerPosition = usePlayerPosition();
+
+  useEffect(() => {
+    if (!meshRef.current || !isAlive) return;
+    const id = registerInvader(meshRef.current, () => {
+      setIsAlive(false);
+      onDestroy?.();
+    });
+    return () => unregisterInvader(id);
+  }, [isAlive, onDestroy]);
 
   useFrame((_state, delta) => {
     if (!meshRef.current || !isAlive) return;
