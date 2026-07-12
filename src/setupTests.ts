@@ -12,3 +12,11 @@ window.matchMedia = window.matchMedia || function() {
       removeListener: function() {}
   };
 };
+
+// jsdom não tem ResizeObserver; o <Canvas> do @react-three/fiber exige
+// (react-use-measure). Com tamanho sempre 0x0, o r3f nem cria contexto WebGL.
+window.ResizeObserver = window.ResizeObserver || class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
