@@ -13,7 +13,8 @@ setupIonicReact({ mode: 'md', rippleEffect: false })
 export default function App() {
   return (
     <IonApp>
-      <IonReactRouter>
+      {/* basename pro deploy em subpath (GitHub Pages); '/' no dev */}
+      <IonReactRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <IonRouterOutlet>
           <Route exact path="/" component={HomeScreen} />
           <Route exact path="/settings" component={SettingsScreen} />
