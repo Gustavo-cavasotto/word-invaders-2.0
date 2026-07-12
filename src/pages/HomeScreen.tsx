@@ -1,6 +1,4 @@
-import { AlienScene } from "@/components/home/AlienScene";
-import { GridFloor } from "@/components/home/GridFloor";
-import { Stars } from "@/components/home/Stars";
+import { HomeScene } from "@/components/home/HomeScene";
 import { CoinBadge } from "@/components/ui/CoinBadge";
 import { useHistory } from "react-router-dom";
 
@@ -13,26 +11,23 @@ export function HomeScreen() {
       style={{
         background:
           "radial-gradient(120% 90% at 50% 0%, #161B2A 0%, #0B0D14 60%)",
-        perspective: 900,
       }}
     >
-      <Stars />
-      <GridFloor />
+      <div className="absolute inset-0 z-0">
+        <HomeScene />
+      </div>
 
       <div className="absolute right-5 top-5 z-10">
         <CoinBadge coins={0} />
       </div>
 
-      <div className="relative z-2 flex flex-1 flex-col items-center justify-center px-6">
-        <AlienScene />
-
+      <div className="pointer-events-none relative z-2 flex flex-1 flex-col items-center justify-end px-6">
         <h1
           className="mt-7.5 text-center text-[22px] leading-[1.9] text-[#EFFDE0]"
           style={{
             fontFamily: "'Press Start 2P', monospace",
             textShadow:
               "0 0 16px rgba(166,232,92,.55), 2px 2px 0 rgba(47,91,29,.9), 4px 4px 0 rgba(20,40,12,.7), 0 10px 24px rgba(0,0,0,.6)",
-            transform: "rotateX(10deg)",
           }}
         >
           WORLD
@@ -53,7 +48,7 @@ export function HomeScreen() {
         </div>
       </div>
 
-      <div className="relative z-2 flex flex-col gap-3.5 px-6 pb-10">
+      <div className="relative z-2 flex flex-col gap-3.5 px-6 pb-10 pt-6">
         <button
           onClick={() => history.push("/gameplay")}
           className="flex h-14.5 items-center justify-center gap-2.5 rounded-2xl text-[17px] font-black tracking-[.02em] text-[#10240A] transition-transform active:translate-y-0.5"

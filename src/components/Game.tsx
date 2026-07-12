@@ -1,16 +1,22 @@
 import { Canvas } from '@react-three/fiber';
 import { DeviceOrientationControls, Grid } from '@react-three/drei';
 import { XR, createXRStore, type XRStore } from '@react-three/xr';
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { Crosshair } from './xr/Crosshair';
 import { Invader } from './xr/Invader';
 import { PlayerWeapon } from './xr/PlayerWeapon';
 import { XRControls } from './xr/XRControls';
 import { NoXR } from './xr/NoXR';
 
-const store = createXRStore();
+// emulate: false em testes — o emulador (iwer) exige WebGL, que não existe no jsdom
+const store = createXRStore(import.meta.env.MODE === 'test' ? { emulate: false } : undefined);
 
-const Game: React.FC = () => {
+type GameProps = {
+  /** Entra no AR automaticamente ao montar (precisa da user activation do clique que navegou até aqui) */
+  autoEnterAR?: boolean;
+};
+
+const Game: React.FC<GameProps> = ({ autoEnterAR = false }) => {
   const [isXRSupported, setIsXRSupported] = useState(false);
   const [isARActive, setIsARActive] = useState(false);
 
@@ -35,6 +41,34 @@ const Game: React.FC = () => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (!autoEnterAR || store.getState().session) return;
+
+    // enterAR rejeita enquanto o <XR>/Canvas não conecta ao renderer; tenta em
+    // intervalos curtos até conectar, dentro da janela de user activation do clique
+    let cancelled = false;
+    let attempts = 0;
+    const tryEnter = async () => {
+      if (cancelled) return;
+      try {
+        await store.enterAR();
+      } catch (error) {
+        if (cancelled) return;
+        if (attempts++ < 20 && String(error).includes('not connected')) {
+          setTimeout(tryEnter, 100);
+        } else {
+          // AR indisponível (ex.: desktop) — ficam os overlays XRControls/NoXR
+          console.warn('Entrada automática no AR falhou:', error);
+        }
+      }
+    };
+    tryEnter();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [autoEnterAR]);
 
   const handleEnterAR = async () => {
     try {
@@ -64,6 +98,10 @@ const Game: React.FC = () => {
       <Canvas
         camera={{ position: [0, 1.6, 0], fov: 75 }}
         gl={{ alpha: true }}
+        // o r3f aponta a câmera default para a origem (reto pro chão a partir
+        // de [0,1.6,0]); olhar para -z na altura dos olhos corrige a visão
+        // fora do AR (no AR a pose XR assume, no celular o giroscópio)
+        onCreated={({ camera }) => camera.lookAt(0, 1.6, -1)}
       >
         <XR store={store}>
 
@@ -74,12 +112,14 @@ const Game: React.FC = () => {
           <directionalLight position={[-5, 3, -5]} intensity={1} />
           <pointLight position={[0, 2, 0]} intensity={1} />
 
-          <Invader
-            initialPosition={[0, 1.5, -3]}
-            speed={0.5}
-            onReachPlayer={() => console.log('Player hit!')}
-            onDestroy={() => console.log('Invader destroyed!')}
-          />
+          <Suspense fallback={null}>
+            <Invader
+              initialPosition={[0, 1.5, -3]}
+              speed={0.5}
+              onReachPlayer={() => console.log('Player hit!')}
+              onDestroy={() => console.log('Invader destroyed!')}
+            />
+          </Suspense>
 
           <PlayerWeapon />
 
