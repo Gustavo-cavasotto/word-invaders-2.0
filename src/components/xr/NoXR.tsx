@@ -1,15 +1,15 @@
 import { IonButton, IonIcon } from '@ionic/react';
 import { alertCircleOutline, phoneLandscapeOutline } from 'ionicons/icons';
+import { useTranslation } from 'react-i18next';
 
 interface NoXRProps {
   message?: string;
   showInstructions?: boolean;
 }
 
-export function NoXR({
-  message = 'WebXR não está disponível',
-  showInstructions = true
-}: NoXRProps) {
+export function NoXR({ message, showInstructions = true }: NoXRProps) {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -37,13 +37,13 @@ export function NoXR({
       />
 
       <h2 style={{ margin: '0 0 15px 0', fontSize: '24px' }}>
-        {message}
+        {message ?? t('noXR.message')}
       </h2>
 
       {showInstructions && (
         <>
           <p style={{ margin: '15px 0', fontSize: '14px', lineHeight: '1.6' }}>
-            Para jogar Word Invaders AR, você precisa de:
+            {t('noXR.intro')}
           </p>
 
           <div
@@ -57,15 +57,13 @@ export function NoXR({
           >
             <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '14px' }}>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Navegador compatível:</strong> Chrome, Edge ou outro navegador
-                com suporte a WebXR
+                <strong>{t('noXR.browserLabel')}</strong> {t('noXR.browserText')}
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Dispositivo com ARCore:</strong> Android 7.0+ com ARCore instalado
+                <strong>{t('noXR.deviceLabel')}</strong> {t('noXR.deviceText')}
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Emulador WebXR:</strong> Para desenvolvimento, use a extensão
-                WebXR Emulator no Chrome DevTools
+                <strong>{t('noXR.emulatorLabel')}</strong> {t('noXR.emulatorText')}
               </li>
             </ul>
           </div>
@@ -78,7 +76,7 @@ export function NoXR({
               size="small"
             >
               <IonIcon icon={phoneLandscapeOutline} slot="start" />
-              Dispositivos Compatíveis
+              {t('noXR.compatibleDevices')}
             </IonButton>
           </div>
         </>

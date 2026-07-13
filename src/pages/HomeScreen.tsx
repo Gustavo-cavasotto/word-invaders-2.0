@@ -7,10 +7,12 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 export function HomeScreen() {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const [sceneActive, setSceneActive] = useState(true);
   useIonViewWillEnter(() => setSceneActive(true));
@@ -48,7 +50,7 @@ export function HomeScreen() {
           </h1>
 
           <p className="mt-3 text-[14px] text-gray-sub">
-            Realidade aumentada • aponte e atire
+            {t("home.tagline")}
           </p>
 
           <div className="mt-3.5 flex items-center gap-1.5 rounded-full border border-alien-green/45 bg-[rgba(20,32,14,0.5)] px-3.5 py-1.5 text-[11px] font-black tracking-[.14em] text-[#CDEFA8]">
@@ -56,7 +58,7 @@ export function HomeScreen() {
               className="h-1.5 w-1.5 animate-blink rounded-full bg-alien-glow"
               style={{ boxShadow: "0 0 8px #A6E85C" }}
             />
-            AR READY
+            {t("home.arReady")}
           </div>
         </div>
 
@@ -65,21 +67,21 @@ export function HomeScreen() {
             className="btn-pixel btn-pixel-primary"
             onClick={() => history.push("/gameplay")}
           >
-            ▶ JOGAR
+            {t("home.play")}
           </IonButton>
 
           <IonButton
             className="btn-pixel btn-pixel-dark"
             onClick={() => history.push("/arsenal")}
           >
-            🔫 ARSENAL
+            {t("home.arsenal")}
           </IonButton>
 
           <IonButton
             className="btn-pixel btn-pixel-dark"
             onClick={() => history.push("/settings")}
           >
-            ⚙️ CONFIGURAÇÕES
+            {t("home.settings")}
           </IonButton>
         </div>
       </div>

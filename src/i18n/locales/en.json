@@ -1,0 +1,68 @@
+{
+  "home": {
+    "tagline": "Augmented reality • point and shoot",
+    "arReady": "AR READY",
+    "play": "▶ PLAY",
+    "arsenal": "🔫 ARSENAL",
+    "settings": "⚙️ SETTINGS"
+  },
+  "settings": {
+    "title": "Settings",
+    "vibrate": {
+      "title": "Vibrate on shot",
+      "description": "Haptic feedback on every shot"
+    },
+    "flash": {
+      "title": "Flashlight",
+      "description": "Fires the camera flash on every shot"
+    },
+    "camera": {
+      "title": "Enable camera",
+      "description": "Uses the real camera for the AR background"
+    },
+    "language": {
+      "title": "Language",
+      "description": "In-game text language"
+    },
+    "test": "▶ Test"
+  },
+  "arsenal": {
+    "title": "Arsenal",
+    "equipped": "EQUIPPED",
+    "weapons": {
+      "classic": {
+        "name": "Classic",
+        "description": "Standard damage • Normal fire rate • 6-round mag"
+      },
+      "machineGun": {
+        "name": "Machine Gun",
+        "description": "Low damage • Very high fire rate • 24-round mag"
+      },
+      "shotgun": {
+        "name": "Shotgun",
+        "description": "Area damage • Slow fire rate • 5-round mag"
+      },
+      "turret": {
+        "name": "Turret",
+        "description": "Auto aim • High fire rate • 14-round mag"
+      }
+    }
+  },
+  "exitDialog": {
+    "title": "Leave the match?",
+    "message": "Your current progress will be lost. Are you sure you want to leave?",
+    "cancel": "Keep playing",
+    "confirm": "Leave"
+  },
+  "noXR": {
+    "message": "WebXR is not available",
+    "intro": "To play Word Invaders AR, you need:",
+    "browserLabel": "Compatible browser:",
+    "browserText": "Chrome, Edge or another browser with WebXR support",
+    "deviceLabel": "ARCore-capable device:",
+    "deviceText": "Android 7.0+ with ARCore installed",
+    "emulatorLabel": "WebXR emulator:",
+    "emulatorText": "For development, use the WebXR Emulator extension in Chrome DevTools",
+    "compatibleDevices": "Compatible Devices"
+  }
+}

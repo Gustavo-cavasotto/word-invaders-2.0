@@ -1,4 +1,5 @@
 import { IonButton, IonModal } from '@ionic/react'
+import { useTranslation } from 'react-i18next'
 
 type ExitConfirmDialogProps = {
   open: boolean
@@ -7,6 +8,8 @@ type ExitConfirmDialogProps = {
 }
 
 export function ExitConfirmDialog({ open, onOpenChange, onConfirm }: ExitConfirmDialogProps) {
+  const { t } = useTranslation()
+
   return (
     <IonModal
       isOpen={open}
@@ -15,11 +18,11 @@ export function ExitConfirmDialog({ open, onOpenChange, onConfirm }: ExitConfirm
     >
       <div className="rounded-2xl border border-white/10 bg-[#17181C] p-6 shadow-2xl">
         <h2 className="text-[18px] font-extrabold text-white">
-          Sair da partida?
+          {t('exitDialog.title')}
         </h2>
 
         <p className="mt-2 text-[14px] leading-relaxed text-gray-sub">
-          O progresso atual será perdido. Tem certeza que deseja sair?
+          {t('exitDialog.message')}
         </p>
 
         <div className="mt-6 flex gap-3">
@@ -27,14 +30,14 @@ export function ExitConfirmDialog({ open, onOpenChange, onConfirm }: ExitConfirm
             className="btn-dialog btn-dialog-cancel flex-1"
             onClick={() => onOpenChange(false)}
           >
-            Continuar
+            {t('exitDialog.cancel')}
           </IonButton>
 
           <IonButton
             className="btn-dialog btn-dialog-confirm flex-1"
             onClick={onConfirm}
           >
-            Sair
+            {t('exitDialog.confirm')}
           </IonButton>
         </div>
       </div>

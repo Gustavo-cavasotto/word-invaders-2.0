@@ -1,5 +1,6 @@
 import { Switch } from "@/components/ui/switch";
 import { IonButton } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 
 type SettingItemProps = {
   title: string;
@@ -16,6 +17,8 @@ export function SettingItem({
   onCheckedChange,
   onTest,
 }: SettingItemProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="border-b border-white/7 py-5">
       <div className="flex items-center justify-between gap-4">
@@ -28,7 +31,7 @@ export function SettingItem({
 
       {onTest && (
         <IonButton className="btn-test mt-3" onClick={onTest}>
-          ▶ Testar
+          {t("settings.test")}
         </IonButton>
       )}
     </div>

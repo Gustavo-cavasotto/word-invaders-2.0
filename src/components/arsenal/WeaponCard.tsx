@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 type WeaponColor = "green" | "blue" | "orange" | "pink";
 
@@ -24,6 +25,8 @@ export function WeaponCard({
   equipped = false,
   price,
 }: WeaponCardProps) {
+  const { t } = useTranslation();
+
   return (
     <div
       className={cn(
@@ -52,7 +55,7 @@ export function WeaponCard({
           className="flex-shrink-0 rounded-full px-3.5 py-2 text-[11px] font-black tracking-wider text-[#10240A]"
           style={{ background: "linear-gradient(180deg, #B7EC6E, #8FD95C)" }}
         >
-          EQUIPADA
+          {t("arsenal.equipped")}
         </div>
       ) : (
         <div className="flex flex-shrink-0 items-center gap-1.5 rounded-full bg-white/7 px-3.5 py-2 text-sm font-bold text-[#D7D8DC]">

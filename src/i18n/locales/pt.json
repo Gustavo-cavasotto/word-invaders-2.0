@@ -1,0 +1,68 @@
+{
+  "home": {
+    "tagline": "Realidade aumentada • aponte e atire",
+    "arReady": "AR READY",
+    "play": "▶ JOGAR",
+    "arsenal": "🔫 ARSENAL",
+    "settings": "⚙️ CONFIGURAÇÕES"
+  },
+  "settings": {
+    "title": "Configurações",
+    "vibrate": {
+      "title": "Vibrar ao atirar",
+      "description": "Feedback tátil a cada disparo"
+    },
+    "flash": {
+      "title": "Acender flash",
+      "description": "Liga o flash da câmera ao disparar"
+    },
+    "camera": {
+      "title": "Liberar câmera",
+      "description": "Usa a câmera real para o fundo AR"
+    },
+    "language": {
+      "title": "Idioma",
+      "description": "Idioma dos textos do jogo"
+    },
+    "test": "▶ Testar"
+  },
+  "arsenal": {
+    "title": "Arsenal",
+    "equipped": "EQUIPADA",
+    "weapons": {
+      "classic": {
+        "name": "Clássica",
+        "description": "Dano padrão • Cadência normal • pente 6"
+      },
+      "machineGun": {
+        "name": "Metralhadora",
+        "description": "Dano baixo • Cadência altíssima • pente 24"
+      },
+      "shotgun": {
+        "name": "Espingarda",
+        "description": "Dano em área • Cadência lenta • pente 5"
+      },
+      "turret": {
+        "name": "Torreta",
+        "description": "Mira automática • Cadência alta • pente 14"
+      }
+    }
+  },
+  "exitDialog": {
+    "title": "Sair da partida?",
+    "message": "O progresso atual será perdido. Tem certeza que deseja sair?",
+    "cancel": "Continuar",
+    "confirm": "Sair"
+  },
+  "noXR": {
+    "message": "WebXR não está disponível",
+    "intro": "Para jogar Word Invaders AR, você precisa de:",
+    "browserLabel": "Navegador compatível:",
+    "browserText": "Chrome, Edge ou outro navegador com suporte a WebXR",
+    "deviceLabel": "Dispositivo com ARCore:",
+    "deviceText": "Android 7.0+ com ARCore instalado",
+    "emulatorLabel": "Emulador WebXR:",
+    "emulatorText": "Para desenvolvimento, use a extensão WebXR Emulator no Chrome DevTools",
+    "compatibleDevices": "Dispositivos Compatíveis"
+  }
+}
