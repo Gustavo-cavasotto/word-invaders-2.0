@@ -25,9 +25,10 @@ export function exitAR() {
 type GameProps = {
   autoEnterAR?: boolean;
   onPlayerHit?: () => void;
+  onKill?: () => void;
 };
 
-const Game: React.FC<GameProps> = ({ autoEnterAR = false, onPlayerHit }) => {
+const Game: React.FC<GameProps> = ({ autoEnterAR = false, onPlayerHit, onKill }) => {
   const [isXRSupported, setIsXRSupported] = useState(false);
   const [isARActive, setIsARActive] = useState(false);
 
@@ -71,7 +72,7 @@ const Game: React.FC<GameProps> = ({ autoEnterAR = false, onPlayerHit }) => {
           <directionalLight position={[-5, 3, -5]} intensity={1} />
           <pointLight position={[0, 2, 0]} intensity={1} />
 
-          <InvaderSpawner onPlayerHit={onPlayerHit} />
+          <InvaderSpawner onPlayerHit={onPlayerHit} onKill={onKill} />
 
           <PlayerWeapon />
 

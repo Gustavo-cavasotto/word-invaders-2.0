@@ -11,6 +11,7 @@ export function Invader({
   initialPosition,
   speed = 0.5,
   onReachPlayer,
+  onKill,
   onDestroy,
 }: InvaderProps) {
   const groupRef = useRef<Group>(null);
@@ -22,10 +23,11 @@ export function Invader({
     if (!groupRef.current || !isAlive) return;
     const id = registerInvader(groupRef.current, () => {
       setIsAlive(false);
+      onKill?.();
       onDestroy?.();
     });
     return () => unregisterInvader(id);
-  }, [isAlive, onDestroy]);
+  }, [isAlive, onKill, onDestroy]);
 
   useFrame((_state, delta) => {
     if (!groupRef.current || !isAlive) return;

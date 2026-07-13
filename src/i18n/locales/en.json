@@ -48,6 +48,15 @@
       }
     }
   },
+  "gameOver": {
+    "kills": "Kills",
+    "coinsEarned": "Coins earned",
+    "best": "Best",
+    "newRecord": "NEW RECORD!",
+    "playAgain": "▶ PLAY AGAIN",
+    "arsenal": "🔫 ARSENAL",
+    "menu": "🏠 MENU"
+  },
   "exitDialog": {
     "title": "Leave the match?",
     "message": "Your current progress will be lost. Are you sure you want to leave?",

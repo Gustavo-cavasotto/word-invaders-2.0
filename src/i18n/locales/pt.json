@@ -48,6 +48,15 @@
       }
     }
   },
+  "gameOver": {
+    "kills": "Eliminações",
+    "coinsEarned": "Moedas ganhas",
+    "best": "Recorde",
+    "newRecord": "NOVO RECORDE!",
+    "playAgain": "▶ JOGAR NOVAMENTE",
+    "arsenal": "🔫 ARSENAL",
+    "menu": "🏠 MENU"
+  },
   "exitDialog": {
     "title": "Sair da partida?",
     "message": "O progresso atual será perdido. Tem certeza que deseja sair?",
