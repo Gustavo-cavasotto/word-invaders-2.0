@@ -1,4 +1,5 @@
 // Valores de economia do GDD (seção 6)
+// TODO - ALTERAR PARA O REDUX OU OUTRO CONTROLE DE STATE
 export const COINS_PER_KILL = 5;
 
 const STORAGE_KEY = 'wi2:playerStats';
