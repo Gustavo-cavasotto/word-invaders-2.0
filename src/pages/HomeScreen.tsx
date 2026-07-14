@@ -1,5 +1,6 @@
 import { HomeScene } from "@/components/home/HomeScene";
 import { CoinBadge } from "@/components/ui/CoinBadge";
+import { loadStats } from "@/game/playerStats";
 import {
   IonButton,
   IonPage,
@@ -15,7 +16,11 @@ export function HomeScreen() {
   const { t } = useTranslation();
 
   const [sceneActive, setSceneActive] = useState(true);
-  useIonViewWillEnter(() => setSceneActive(true));
+  const [coins, setCoins] = useState(() => loadStats().coins);
+  useIonViewWillEnter(() => {
+    setSceneActive(true);
+    setCoins(loadStats().coins);
+  });
   useIonViewDidLeave(() => setSceneActive(false));
 
   return (
@@ -32,7 +37,7 @@ export function HomeScreen() {
         </div>
 
         <div className="absolute right-5 top-5 z-10">
-          <CoinBadge coins={0} />
+          <CoinBadge coins={coins} />
         </div>
 
         <div className="pointer-events-none relative z-2 flex flex-1 flex-col items-center justify-end px-6">

@@ -2,6 +2,7 @@ export interface InvaderProps {
   initialPosition: [number, number, number];
   speed?: number;
   onReachPlayer?: () => void;
+  onKill?: () => void;
   onDestroy?: () => void;
 }
 

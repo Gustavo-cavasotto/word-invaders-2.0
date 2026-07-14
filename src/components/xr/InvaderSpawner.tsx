@@ -8,9 +8,10 @@ const SPAWN_DISTANCE = 4;
 
 type InvaderSpawnerProps = {
   onPlayerHit?: () => void;
+  onKill?: () => void;
 };
 
-export function InvaderSpawner({ onPlayerHit }: InvaderSpawnerProps) {
+export function InvaderSpawner({ onPlayerHit, onKill }: InvaderSpawnerProps) {
   const playerPosition = usePlayerPosition();
   const [invaders, setInvaders] = useState<InvaderData[]>([]);
   const nextIdRef = useRef(0);
@@ -46,6 +47,7 @@ export function InvaderSpawner({ onPlayerHit }: InvaderSpawnerProps) {
           initialPosition={invader.position}
           speed={0.5}
           onReachPlayer={onPlayerHit}
+          onKill={onKill}
           onDestroy={() => removeInvader(invader.id)}
         />
       ))}

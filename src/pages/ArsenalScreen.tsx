@@ -1,6 +1,8 @@
 import { WeaponCard, WeaponCardProps } from "@/components/arsenal/WeaponCard";
 import { NavHeader } from "@/components/ui/NavHeader";
-import { IonContent, IonPage } from "@ionic/react";
+import { loadStats } from "@/game/playerStats";
+import { IonContent, IonPage, useIonViewWillEnter } from "@ionic/react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 type WeaponDef = Omit<WeaponCardProps, "name" | "description"> & {
@@ -17,9 +19,12 @@ const WEAPONS: WeaponDef[] = [
 export function ArsenalScreen() {
   const { t } = useTranslation();
 
+  const [coins, setCoins] = useState(() => loadStats().coins);
+  useIonViewWillEnter(() => setCoins(loadStats().coins));
+
   return (
     <IonPage>
-      <NavHeader title={t("arsenal.title")} coins={0} />
+      <NavHeader title={t("arsenal.title")} coins={coins} />
 
       <IonContent scrollY={false}>
         <div className="flex flex-col gap-3 px-4">

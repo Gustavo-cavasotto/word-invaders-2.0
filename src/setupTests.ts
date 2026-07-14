@@ -4,6 +4,11 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
+// os componentes usam useTranslation(); fora do main.tsx o i18n precisa
+// ser inicializado aqui, com idioma fixo pra manter os testes determinísticos
+import i18n from './i18n';
+await i18n.changeLanguage('pt');
+
 // Mock matchmedia
 window.matchMedia = window.matchMedia || function() {
   return {
