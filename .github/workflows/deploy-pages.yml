@@ -25,7 +25,7 @@ jobs:
       # precisar mexer nas settings do repo
       - uses: actions/configure-pages@v5
         with:
-          enablement: enabled
+          enablement: true
 
       - uses: actions/setup-node@v4
         with:
