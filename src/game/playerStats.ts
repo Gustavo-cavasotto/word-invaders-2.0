@@ -15,6 +15,7 @@ export interface MatchResult {
   totalCoins: number;
   bestKills: number;
   isNewRecord: boolean;
+  durationMs: number;
 }
 
 export function loadStats(): PlayerStats {
@@ -42,7 +43,7 @@ function saveStats(stats: PlayerStats) {
 }
 
 /** Credita as moedas da partida e atualiza o recorde, retornando o resumo. */
-export function applyMatchResult(kills: number): MatchResult {
+export function applyMatchResult(kills: number, durationMs: number): MatchResult {
   const stats = loadStats();
   const coinsEarned = kills * COINS_PER_KILL;
   const isNewRecord = kills > stats.bestKills;
@@ -59,5 +60,6 @@ export function applyMatchResult(kills: number): MatchResult {
     totalCoins: updated.coins,
     bestKills: updated.bestKills,
     isNewRecord,
+    durationMs,
   };
 }

@@ -11,7 +11,7 @@ describe('playerStats', () => {
   });
 
   it('credita moedas proporcionais às kills e marca novo recorde', () => {
-    const result = applyMatchResult(7);
+    const result = applyMatchResult(7, 90_000);
 
     expect(result).toEqual({
       kills: 7,
@@ -19,13 +19,14 @@ describe('playerStats', () => {
       totalCoins: 7 * COINS_PER_KILL,
       bestKills: 7,
       isNewRecord: true,
+      durationMs: 90_000,
     });
     expect(loadStats()).toEqual({ coins: 35, bestKills: 7 });
   });
 
   it('acumula moedas entre partidas e mantém o recorde maior', () => {
-    applyMatchResult(7);
-    const result = applyMatchResult(3);
+    applyMatchResult(7, 90_000);
+    const result = applyMatchResult(3, 30_000);
 
     expect(result.coinsEarned).toBe(15);
     expect(result.totalCoins).toBe(50);
@@ -34,7 +35,7 @@ describe('playerStats', () => {
   });
 
   it('partida com 0 kills não é novo recorde', () => {
-    const result = applyMatchResult(0);
+    const result = applyMatchResult(0, 5_000);
 
     expect(result.coinsEarned).toBe(0);
     expect(result.isNewRecord).toBe(false);

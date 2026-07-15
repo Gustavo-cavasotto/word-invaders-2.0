@@ -15,9 +15,11 @@ export function GameplayScreen() {
   const [kills, setKills] = useState(0);
   const playerHitRef = useRef(false);
   const killsRef = useRef(0);
+  const startTimeRef = useRef(0);
   useIonViewWillEnter(() => {
     playerHitRef.current = false;
     killsRef.current = 0;
+    startTimeRef.current = Date.now();
     setKills(0);
     setGameActive(true);
   });
@@ -34,7 +36,7 @@ export function GameplayScreen() {
   const handlePlayerHit = () => {
     if (playerHitRef.current) return;
     playerHitRef.current = true;
-    const result = applyMatchResult(killsRef.current);
+    const result = applyMatchResult(killsRef.current, Date.now() - startTimeRef.current);
     history.replace("/game-over", result);
   };
 
