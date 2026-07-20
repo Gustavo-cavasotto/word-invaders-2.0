@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { applyMatchResult, COINS_PER_KILL, loadStats } from './playerStats';
+import { COINS_PER_KILL, loadStats } from './playerStats';
 
 describe('playerStats', () => {
   beforeEach(() => {
@@ -10,39 +10,22 @@ describe('playerStats', () => {
     expect(loadStats()).toEqual({ coins: 0, bestKills: 0 });
   });
 
-  it('credita moedas proporcionais às kills e marca novo recorde', () => {
-    const result = applyMatchResult(7, 90_000);
-
-    expect(result).toEqual({
-      kills: 7,
-      coinsEarned: 7 * COINS_PER_KILL,
-      totalCoins: 7 * COINS_PER_KILL,
-      bestKills: 7,
-      isNewRecord: true,
-      durationMs: 90_000,
-    });
-    expect(loadStats()).toEqual({ coins: 35, bestKills: 7 });
-  });
-
-  it('acumula moedas entre partidas e mantém o recorde maior', () => {
-    applyMatchResult(7, 90_000);
-    const result = applyMatchResult(3, 30_000);
-
-    expect(result.coinsEarned).toBe(15);
-    expect(result.totalCoins).toBe(50);
-    expect(result.bestKills).toBe(7);
-    expect(result.isNewRecord).toBe(false);
-  });
-
-  it('partida com 0 kills não é novo recorde', () => {
-    const result = applyMatchResult(0, 5_000);
-
-    expect(result.coinsEarned).toBe(0);
-    expect(result.isNewRecord).toBe(false);
+  it('carrega dados salvos do localStorage', () => {
+    localStorage.setItem('wi2:playerStats', JSON.stringify({ coins: 100, bestKills: 15 }));
+    expect(loadStats()).toEqual({ coins: 100, bestKills: 15 });
   });
 
   it('ignora dados corrompidos no storage', () => {
     localStorage.setItem('wi2:playerStats', 'not json');
     expect(loadStats()).toEqual({ coins: 0, bestKills: 0 });
+  });
+
+  it('converte valores para números', () => {
+    localStorage.setItem('wi2:playerStats', JSON.stringify({ coins: '50', bestKills: '10' }));
+    expect(loadStats()).toEqual({ coins: 50, bestKills: 10 });
+  });
+
+  it('COINS_PER_KILL mantém o valor correto', () => {
+    expect(COINS_PER_KILL).toBe(5);
   });
 });

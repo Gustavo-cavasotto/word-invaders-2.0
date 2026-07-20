@@ -1,6 +1,7 @@
 import { HomeScene } from "@/components/home/HomeScene";
 import { CoinBadge } from "@/components/ui/CoinBadge";
-import { loadStats } from "@/game/playerStats";
+import { useAppSelector } from "@/store/hooks";
+import { selectCoins } from "@/store/slices/playerStatsSlice";
 import {
   IonButton,
   IonPage,
@@ -16,10 +17,10 @@ export function HomeScreen() {
   const { t } = useTranslation();
 
   const [sceneActive, setSceneActive] = useState(true);
-  const [coins, setCoins] = useState(() => loadStats().coins);
+  const coins = useAppSelector(selectCoins);
+
   useIonViewWillEnter(() => {
     setSceneActive(true);
-    setCoins(loadStats().coins);
   });
   useIonViewDidLeave(() => setSceneActive(false));
 

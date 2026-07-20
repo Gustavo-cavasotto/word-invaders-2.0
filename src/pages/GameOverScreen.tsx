@@ -1,8 +1,9 @@
 import { CoinBadge } from "@/components/ui/CoinBadge";
-import { MatchResult } from "@/game/playerStats";
+import { useAppSelector } from "@/store/hooks";
+import { selectMatchResult } from "@/store/slices/playerStatsSlice";
 import { IonButton, IonPage } from "@ionic/react";
 import { useTranslation } from "react-i18next";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 function formatDuration(ms: number): string {
   const totalSeconds = Math.floor(ms / 1000);
@@ -14,16 +15,11 @@ function formatDuration(ms: number): string {
 export function GameOverScreen() {
   const history = useHistory();
   const { t } = useTranslation();
-  const location = useLocation<MatchResult | undefined>();
-  const result = location.state;
+  const result = useAppSelector(selectMatchResult);
 
-  if (!result) {
-    // acesso direto à rota, sem partida encerrada: volta pro menu
-    if (location.pathname === "/game-over") return <Redirect to="/" />;
-    // página em cache do Ionic após navegar pra outra rota: o useLocation
-    // já aponta pra rota nova (sem state) e um Redirect aqui sequestraria
-    // a navegação
-    return null;
+  // No match data means user accessed this screen directly
+  if (!result || result.kills === 0) {
+    return <Redirect to="/" />;
   }
 
   return (
