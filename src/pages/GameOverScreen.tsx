@@ -5,6 +5,13 @@ import { IonButton, IonPage } from "@ionic/react";
 import { useTranslation } from "react-i18next";
 import { Redirect, useHistory } from "react-router-dom";
 
+function formatDuration(ms: number): string {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
 export function GameOverScreen() {
   const history = useHistory();
   const { t } = useTranslation();
@@ -59,6 +66,15 @@ export function GameOverScreen() {
               </span>
               <span className="text-[17px] font-extrabold text-white">
                 {result.kills}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between border-b border-white/7 py-3">
+              <span className="text-[14px] text-gray-sub">
+                {t("gameOver.time")}
+              </span>
+              <span className="text-[17px] font-extrabold text-white">
+                {formatDuration(result.durationMs)}
               </span>
             </div>
 

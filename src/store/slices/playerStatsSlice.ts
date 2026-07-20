@@ -9,6 +9,9 @@ export interface PlayerStatsState {
   currentMatch: {
     kills: number
     isActive: boolean
+    // opcionais para não exigir os campos em estados montados manualmente (testes)
+    startedAt?: number
+    durationMs?: number
   }
   isHydrated: boolean
 }
@@ -35,22 +38,34 @@ const playerStatsSlice = createSlice({
       state.bestKills = action.payload.bestKills
       state.isHydrated = true
     },
-    startMatch: (state) => {
-      state.currentMatch.kills = 0
-      state.currentMatch.isActive = true
+    startMatch: {
+      // timestamp vem do prepare para manter o reducer puro
+      prepare: () => ({ payload: { startedAt: Date.now() } }),
+      reducer: (state, action: PayloadAction<{ startedAt: number }>) => {
+        state.currentMatch.kills = 0
+        state.currentMatch.isActive = true
+        state.currentMatch.startedAt = action.payload.startedAt
+        state.currentMatch.durationMs = 0
+      },
     },
     incrementKills: (state) => {
       state.currentMatch.kills += 1
     },
-    endMatch: (state) => {
-      const coinsEarned = state.currentMatch.kills * COINS_PER_KILL
+    endMatch: {
+      prepare: () => ({ payload: { endedAt: Date.now() } }),
+      reducer: (state, action: PayloadAction<{ endedAt: number }>) => {
+        const coinsEarned = state.currentMatch.kills * COINS_PER_KILL
 
-      state.coins += coinsEarned
+        state.coins += coinsEarned
 
-      if (state.currentMatch.kills > state.bestKills) {
-        state.bestKills = state.currentMatch.kills
-      }
+        if (state.currentMatch.kills > state.bestKills) {
+          state.bestKills = state.currentMatch.kills
+        }
 
+        if (state.currentMatch.startedAt !== undefined) {
+          state.currentMatch.durationMs = action.payload.endedAt - state.currentMatch.startedAt
+        }
+      },
     },
     resetMatch: (state) => {
       state.currentMatch.kills = 0
@@ -89,6 +104,7 @@ export const selectMatchResult = (state: RootState) => {
     totalCoins: coins,
     bestKills,
     isNewRecord,
+    durationMs: currentMatch.durationMs ?? 0,
   }
 }
 

@@ -50,6 +50,7 @@
   },
   "gameOver": {
     "kills": "Kills",
+    "time": "Time survived",
     "coinsEarned": "Coins earned",
     "best": "Best",
     "newRecord": "NEW RECORD!",

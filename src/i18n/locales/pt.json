@@ -50,6 +50,7 @@
   },
   "gameOver": {
     "kills": "Eliminações",
+    "time": "Tempo sobrevivido",
     "coinsEarned": "Moedas ganhas",
     "best": "Recorde",
     "newRecord": "NOVO RECORDE!",
