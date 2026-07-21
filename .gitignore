@@ -29,3 +29,11 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+
+# TWA (Bubblewrap): keystore, senhas e artefatos de build nunca vao pro git
+twa/*.keystore
+twa/.keystore-senha.txt
+twa/app-release-*
+twa/build/
+twa/app/build/
+twa/.gradle/

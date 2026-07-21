@@ -1,0 +1,42 @@
+{
+  "packageId": "io.github.gustavocavasotto.wordinvaders",
+  "host": "gustavo-cavasotto.github.io",
+  "name": "World Invaders 2.0",
+  "launcherName": "World Invaders",
+  "display": "standalone",
+  "themeColor": "#0a0a0a",
+  "themeColorDark": "#0a0a0a",
+  "navigationColor": "#0a0a0a",
+  "navigationColorDark": "#0a0a0a",
+  "navigationDividerColor": "#0a0a0a",
+  "navigationDividerColorDark": "#0a0a0a",
+  "backgroundColor": "#0a0a0a",
+  "enableNotifications": false,
+  "startUrl": "/word-invaders-2.0/",
+  "iconUrl": "https://gustavo-cavasotto.github.io/word-invaders-2.0/assets/icon/icon-512.png",
+  "maskableIconUrl": "https://gustavo-cavasotto.github.io/word-invaders-2.0/assets/icon/icon-512-maskable.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://gustavo-cavasotto.github.io/word-invaders-2.0/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://gustavo-cavasotto.github.io/word-invaders-2.0/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": []
+}

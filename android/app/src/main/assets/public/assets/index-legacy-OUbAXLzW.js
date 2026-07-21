@@ -1,0 +1,1 @@
+System.register(["./index-legacy-CP2NCbRN.js","./index-legacy-HBVDLnjs.js"],function(e,r){"use strict";var t,c;return{setters:[e=>{t=e._},e=>{c=e.r}],execute:function(){e("Torch",c("Torch",{web:()=>t(()=>r.import("./web-legacy-BU2YI3Iq.js"),void 0).then(e=>new e.TorchWeb)}))}}});
